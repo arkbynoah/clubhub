@@ -190,7 +190,7 @@ export default function Home() {
           It&apos;s March Hiring Szn.
         </h1>
         <p className="mb-8 text-center text-lg font-medium text-[#8A8A8A]">
-          Queen&apos;s Commerce Club Recruiting, All in One Place.
+          Queen&apos;s Commerce Club Recruiting,<br className="sm:hidden" /> All in One Place.
         </p>
 
         <div className="relative w-full max-w-[600px]">
