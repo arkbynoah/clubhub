@@ -72,3 +72,23 @@ create table timeline_events (
 );
 
 create index timeline_events_club_id_idx on timeline_events(club_id);
+
+
+-- ─────────────────────────────────────────
+-- Row Level Security
+-- ─────────────────────────────────────────
+-- All tables are read-only for anonymous (public) users.
+-- INSERT / UPDATE / DELETE require an authenticated admin role.
+
+alter table clubs enable row level security;
+alter table team_members enable row level security;
+alter table timeline_events enable row level security;
+
+create policy "Public read access" on clubs
+  for select using (true);
+
+create policy "Public read access" on team_members
+  for select using (true);
+
+create policy "Public read access" on timeline_events
+  for select using (true);

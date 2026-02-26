@@ -58,7 +58,7 @@ export default function ClubDetailPage() {
     async function fetchData() {
       const { data: clubData } = await supabase
         .from("clubs")
-        .select("*")
+        .select("id, name, full_name, slug, category, description, instagram_url, hiring_status, is_urgent, march_hiring")
         .eq("slug", slug)
         .single();
 
@@ -73,12 +73,12 @@ export default function ClubDetailPage() {
       const [timelineRes, teamRes] = await Promise.all([
         supabase
           .from("timeline_events")
-          .select("*")
+          .select("id, club_id, event_name, event_date, is_urgent, is_confirmed")
           .eq("club_id", clubData.id)
           .order("id"),
         supabase
           .from("team_members")
-          .select("*")
+          .select("id, club_id, name, role, role_type, year, is_incoming")
           .eq("club_id", clubData.id),
       ]);
 

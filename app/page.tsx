@@ -67,15 +67,25 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
       const [clubsRes, peopleRes] = await Promise.all([
-        supabase.from("clubs").select("*").order("name"),
+        supabase
+          .from("clubs")
+          .select("id, name, full_name, slug, category, description, instagram_url, hiring_status, is_urgent, march_hiring")
+          .order("name"),
         supabase
           .from("team_members")
-          .select("*, clubs(name, full_name, slug)")
+          .select("id, club_id, name, role, role_type, year, is_incoming, clubs(name, full_name, slug)")
           .order("name"),
       ]);
 
       if (clubsRes.data) setClubs(clubsRes.data as Club[]);
-      if (peopleRes.data) setPeople(peopleRes.data as TeamMemberWithClub[]);
+      if (peopleRes.data) {
+        // Supabase returns joined relation as array; unwrap to single object
+        const normalized = (peopleRes.data as Record<string, unknown>[]).map((row) => ({
+          ...row,
+          clubs: Array.isArray(row.clubs) ? row.clubs[0] : row.clubs,
+        })) as TeamMemberWithClub[];
+        setPeople(normalized);
+      }
       setLoading(false);
     }
     fetchData();
