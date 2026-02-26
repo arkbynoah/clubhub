@@ -32,6 +32,12 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState("HOME");
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get("category");
+    if (cat) setActiveCategory(cat);
+  }, []);
+
+  useEffect(() => {
     async function fetchClubs() {
       const { data } = await supabase
         .from("clubs")
