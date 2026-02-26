@@ -178,19 +178,41 @@ export default function ClubDetailPage() {
     const lower = roleType.toLowerCase();
     if (lower === "co-chair") return 0;
     if (lower.includes("advisor")) return 1;
+    if (lower === "head of engagement") return 1.5;
+    if (lower === "engagement director") return 1.7;
     if (lower === "director" || lower.startsWith("director of") || lower === "senior director" || lower === "membership director") return 2;
     if (lower === "operations") return 3;
-    if (lower === "development") return 4;
-    if (lower === "data" || lower === "senior analyst") return 5;
-    if (lower === "pm") return 6;
-    if (lower === "senior portfolio manager") return 7;
-    if (lower === "senior") return 8;
-    if (lower === "portfolio manager") return 9;
-    if (lower === "analyst") return 10;
-    if (lower === "member" || lower === "membership coord") return 11;
+    if (lower === "strategy") return 3;
+    if (lower === "marketing coord") return 4;
+    if (lower === "marketing coordinator") return 4;
+    if (lower === "logistics coordinator") return 4;
+    if (lower === "development") return 5;
+    if (lower === "data") return 6;
+    if (lower === "pm") return 7;
+    if (lower === "senior portfolio manager") return 8;
+    if (lower === "senior project manager") return 8;
+    if (lower === "senior") return 9;
+    if (lower === "senior ui/ux") return 9;
+    if (lower === "senior developer") return 9;
+    if (lower === "senior business analyst") return 9;
+    if (lower === "portfolio manager") return 10;
+    if (lower === "project manager") return 10;
+    if (lower === "senior analyst") return 11;
+    if (lower === "analyst") return 12;
+    if (lower === "trader") return 13;
+    if (lower === "research") return 14;
+    if (lower === "ui/ux") return 15;
+    if (lower === "developer") return 15;
+    if (lower === "business analyst") return 15;
+    if (lower === "member" || lower === "membership coord") return 15;
+    if (lower === "business consultant") return 16;
+    if (lower === "technical consultant") return 17;
     if (lower === "senior project director") return 51;
     if (lower === "project director") return 52;
     if (lower === "consultant") return 53;
+    if (lower === "comm '26") return 20;
+    if (lower === "comm '27") return 21;
+    if (lower === "comm '28") return 22;
     if (lower.includes("first year")) return 100;
     return 50;
   }
@@ -210,9 +232,23 @@ export default function ClubDetailPage() {
     "Senior Analyst": "Senior Analysts",
     "PM": "PMs",
     "Senior Portfolio Manager": "Senior Portfolio Managers",
+    "Senior Project Manager": "Senior Project Managers",
     "Senior": "Seniors",
+    "Senior UI/UX": "Senior UI/UX",
+    "Senior Developer": "Senior Developers",
+    "Senior Business Analyst": "Senior Business Analysts",
     "Portfolio Manager": "Portfolio Managers",
+    "Project Manager": "Project Managers",
+    "UI/UX": "UI/UX",
+    "Developer": "Developers",
+    "Business Analyst": "Business Analysts",
     "Member": "Members",
+    "Business Consultant": "Business Consultants",
+    "Technical Consultant": "Technical Consultants",
+    "Marketing Coord": "Marketing",
+    "Marketing Coordinator": "Marketing Coordinators",
+    "Logistics Coordinator": "Logistics Coordinators",
+    "Trader": "Traders",
     "Membership Coord": "Membership Coords",
     "Senior Project Director": "Senior Project Directors",
     "Project Director": "Project Directors",
@@ -220,6 +256,11 @@ export default function ClubDetailPage() {
     "First Year Rep": "First Year Reps",
     "First Year Analyst": "First Year Analysts",
     "First Year Hire": "First Year Hires",
+    "Head of Engagement": "Heads of Engagement",
+    "Engagement Director": "Engagement Directors",
+    "Comm '26": "Comm '26",
+    "Comm '27": "Comm '27",
+    "Comm '28": "Comm '28",
   };
 
   const sortedRoleTypes = Array.from(roleGroups.keys()).sort(
@@ -279,37 +320,36 @@ export default function ClubDetailPage() {
                 URGENT
               </span>
             )}
-          </div>
 
-          {club.instagram_url && (
-            <a
-              href={
-                club.instagram_url.startsWith("http")
-                  ? club.instagram_url
-                  : `https://${club.instagram_url}`
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 rounded-[8px] bg-[#FF9000] px-4 py-2 text-sm font-bold text-black transition-opacity hover:opacity-90"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            {club.instagram_url && (
+              <a
+                href={
+                  club.instagram_url.startsWith("http")
+                    ? club.instagram_url
+                    : `https://${club.instagram_url}`
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#8A8A8A] transition-colors hover:text-white"
               >
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-              </svg>
-              Instagram
-            </a>
-          )}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+            )}
+          </div>
         </div>
 
         {/* Timeline Section */}

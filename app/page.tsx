@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/lib/supabase";
 import Navbar from "@/components/Navbar";
 import ClubCard, { type Club } from "@/components/ClubCard";
+
+const PLACEHOLDER_TEXT = "I'm interested in finance and investing...";
 
 const CATEGORY_MAP: Record<string, string | null> = {
   HOME: null,
@@ -30,6 +32,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("HOME");
+  const [placeholder, setPlaceholder] = useState("");
+  const charIdx = useRef(0);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -50,6 +54,18 @@ export default function Home() {
     fetchClubs();
   }, []);
 
+  // Typing animation for placeholder — type once then stay
+  useEffect(() => {
+    const tick = setInterval(() => {
+      charIdx.current++;
+      setPlaceholder(PLACEHOLDER_TEXT.slice(0, charIdx.current));
+      if (charIdx.current >= PLACEHOLDER_TEXT.length) {
+        clearInterval(tick);
+      }
+    }, 80);
+    return () => clearInterval(tick);
+  }, []);
+
   const filteredClubs = clubs.filter((club) => {
     const categoryValue = CATEGORY_MAP[activeCategory];
     if (categoryValue === "__other__") {
@@ -60,12 +76,26 @@ export default function Home() {
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
-      return (
-        club.name.toLowerCase().includes(q) ||
-        club.full_name.toLowerCase().includes(q) ||
-        club.category.toLowerCase().includes(q) ||
-        (club.description && club.description.toLowerCase().includes(q))
-      );
+      const haystack = [
+        club.name,
+        club.full_name,
+        club.category,
+        club.description || "",
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      // Match if the full query is found, OR if every meaningful word matches
+      if (haystack.includes(q)) return true;
+
+      const stopWords = new Set([
+        "i'm", "im", "i", "a", "an", "the", "in", "and", "or", "of",
+        "to", "for", "is", "it", "my", "me", "we", "do", "so",
+        "interested", "looking", "want", "like", "about", "into",
+      ]);
+      const words = q.split(/\s+/).filter((w) => !stopWords.has(w) && w.length > 1);
+      if (words.length === 0) return true;
+      return words.some((word) => haystack.includes(word));
     }
 
     return true;
@@ -80,11 +110,11 @@ export default function Home() {
 
       {/* Hero */}
       <section className="flex flex-col items-center px-4 pt-20 pb-14">
-        <h1 className="mb-2 text-center text-5xl font-extrabold text-white">
-          Find Your Club.
+        <h1 className="mb-4 text-center text-5xl font-extrabold text-white">
+          It&apos;s March Hiring Szn.
         </h1>
         <p className="mb-8 text-center text-lg font-medium text-[#8A8A8A]">
-          Queen&apos;s Commerce Recruiting, All In One Place.
+          Queen&apos;s Commerce Club Recruiting, All in One Place.
         </p>
 
         <div className="relative w-full max-w-[600px]">
@@ -107,7 +137,7 @@ export default function Home() {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="I'm interested in finance and investing..."
+            placeholder={placeholder}
             className="w-full rounded-full bg-[#2B2B2B] py-4 pl-14 pr-6 text-base text-white placeholder-[#8A8A8A] outline-none focus:ring-2 focus:ring-[#FF9000]"
           />
         </div>
