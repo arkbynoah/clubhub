@@ -9,9 +9,23 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://clubhub.vercel.app"),
   title: "ClubHub — Queen's Commerce Club Directory",
   description:
     "Discover clubs, explore hiring timelines, and find people across 32 Queen's Commerce student organizations.",
+  openGraph: {
+    title: "ClubHub — Queen's Commerce Club Directory",
+    description:
+      "Queen's Commerce Club Recruiting, All in One Place.",
+    siteName: "ClubHub",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ClubHub — Queen's Commerce Club Directory",
+    description:
+      "Queen's Commerce Club Recruiting, All in One Place.",
+  },
 };
 
 export default function RootLayout({

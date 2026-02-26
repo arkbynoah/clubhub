@@ -203,8 +203,6 @@ export default function Home() {
             className="w-full rounded-full bg-[#2B2B2B] py-4 pl-14 pr-6 text-base text-white placeholder-[#8A8A8A] outline-none focus:ring-2 focus:ring-[#FF9000]"
           />
         </div>
-
-
       </section>
 
       {/* Results */}
