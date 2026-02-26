@@ -128,7 +128,11 @@ export default function Home() {
 
       const words = q.split(/\s+/).filter((w) => !STOP_WORDS.has(w) && w.length > 1);
       if (words.length === 0) return true;
-      return words.some((word) => haystack.includes(word) || haystack.includes(normalize(word)));
+      // Use word-boundary matching so "dev" doesn't match "development"
+      return words.some((word) => {
+        const re = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`);
+        return re.test(haystack) || re.test(normalize(haystack));
+      });
     }
 
     return true;
@@ -162,6 +166,16 @@ export default function Home() {
   const hasClubResults = filteredClubs.length > 0;
   const hasPeopleResults = filteredPeople.length > 0;
   const noResults = hasQuery && !hasClubResults && !hasPeopleResults;
+
+  // Show clubs first if query matches a category or club name/abbreviation
+  const clubsFirst = (() => {
+    if (!hasQuery) return true;
+    const q = searchQuery.trim().toLowerCase();
+    const categoryNames = Object.values(CATEGORY_MAP).filter(Boolean).map((c) => (c as string).toLowerCase());
+    if (categoryNames.some((cat) => cat.includes(q) || q.includes(cat))) return true;
+    if (clubs.some((club) => club.name.toLowerCase().includes(q) || q.includes(club.name.toLowerCase()))) return true;
+    return false;
+  })();
 
   return (
     <div className="min-h-screen bg-black">
@@ -214,7 +228,7 @@ export default function Home() {
         )}
 
         {/* Clubs Section */}
-        {(!hasQuery || hasClubResults || loading) && !noResults && (
+        {(clubsFirst || !hasPeopleResults) && (!hasQuery || hasClubResults || loading) && !noResults && (
           <>
             <div className="mb-6 flex items-center gap-3">
               <h2 className="text-2xl font-extrabold text-white">
@@ -247,7 +261,7 @@ export default function Home() {
         {/* People & Roles Section */}
         {hasPeopleResults && (
           <>
-            <div className="mb-6 mt-12 flex items-center gap-3">
+            <div className={`mb-6 flex items-center gap-3${hasClubResults || !hasQuery ? " mt-12" : ""}`}>
               <h2 className="text-2xl font-extrabold text-white">
                 People &amp; Roles
               </h2>
@@ -301,6 +315,26 @@ export default function Home() {
                     </a>
                   )}
                 </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        {/* Clubs Section — shown after people when people-first */}
+        {!clubsFirst && hasPeopleResults && hasClubResults && !noResults && (
+          <>
+            <div className="mb-6 mt-12 flex items-center gap-3">
+              <h2 className="text-2xl font-extrabold text-white">
+                Clubs
+              </h2>
+              <span className="rounded-[4px] bg-[#FF9000] px-2.5 py-0.5 text-sm font-bold text-black">
+                {filteredClubs.length}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {filteredClubs.map((club) => (
+                <ClubCard key={club.id} club={club} />
               ))}
             </div>
           </>
