@@ -72,7 +72,7 @@ export default function Navbar({
           <button
             onClick={toggleTheme}
             className="flex items-center gap-2 rounded-full border border-[var(--border)] px-3 py-1.5 text-xs font-semibold transition-colors hover:border-[var(--accent)]"
-            title={stealth ? "Switch to ClubHub theme" : "Switch to Stealth mode"}
+            title={stealth ? "Switch to ClubHub theme" : "Switch to stealth mode"}
           >
             <span className={stealth ? "text-[var(--muted)]" : "text-[var(--accent)]"}>CH</span>
             <div className="relative h-4 w-8 rounded-full bg-[var(--border)]">
@@ -82,7 +82,7 @@ export default function Navbar({
                 }`}
               />
             </div>
-            <span className={stealth ? "text-[var(--accent)]" : "text-[var(--muted)]"}>Stealth</span>
+            <span className={stealth ? "text-[var(--accent)]" : "text-[var(--muted)]"}>stealth</span>
           </button>
         </div>
       </div>
