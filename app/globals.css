@@ -16,7 +16,7 @@
     --logo-on-accent: #000000;
   }
 
-  [data-theme="safe"] {
+  [data-theme="stealth"] {
     --bg: #000000;
     --card: #2B2B2B;
     --card-hover: #333333;

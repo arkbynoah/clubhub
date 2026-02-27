@@ -22,22 +22,22 @@ export default function Navbar({
   activeCategory,
   setActiveCategory,
 }: NavbarProps) {
-  const [safe, setSafe] = useState(false);
+  const [stealth, setStealth] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("theme");
-    if (saved === "safe") {
-      setSafe(true);
-      document.documentElement.setAttribute("data-theme", "safe");
+    if (saved === "stealth") {
+      setStealth(true);
+      document.documentElement.setAttribute("data-theme", "stealth");
     }
   }, []);
 
   function toggleTheme() {
-    const next = !safe;
-    setSafe(next);
+    const next = !stealth;
+    setStealth(next);
     if (next) {
-      document.documentElement.setAttribute("data-theme", "safe");
-      localStorage.setItem("theme", "safe");
+      document.documentElement.setAttribute("data-theme", "stealth");
+      localStorage.setItem("theme", "stealth");
     } else {
       document.documentElement.removeAttribute("data-theme");
       localStorage.setItem("theme", "default");
@@ -55,9 +55,9 @@ export default function Navbar({
             style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
           >
             <span className="flex items-center text-[34px] font-bold leading-none text-[var(--text)]">
-              {safe ? "Comm" : "Club"}
+              {stealth ? "Comm" : "Club"}
             </span>
-            {safe ? (
+            {stealth ? (
               <span className="flex items-center text-[34px] font-bold leading-none text-[var(--accent)]">
                 stalk
               </span>
@@ -72,17 +72,17 @@ export default function Navbar({
           <button
             onClick={toggleTheme}
             className="flex items-center gap-2 rounded-full border border-[var(--border)] px-3 py-1.5 text-xs font-semibold transition-colors hover:border-[var(--accent)]"
-            title={safe ? "Switch to ClubHub theme" : "Switch to Safe mode"}
+            title={stealth ? "Switch to ClubHub theme" : "Switch to Stealth mode"}
           >
-            <span className={safe ? "text-[var(--muted)]" : "text-[var(--accent)]"}>CH</span>
+            <span className={stealth ? "text-[var(--muted)]" : "text-[var(--accent)]"}>CH</span>
             <div className="relative h-4 w-8 rounded-full bg-[var(--border)]">
               <div
                 className={`absolute top-0.5 h-3 w-3 rounded-full bg-[var(--accent)] transition-all duration-200 ${
-                  safe ? "left-[18px]" : "left-0.5"
+                  stealth ? "left-[18px]" : "left-0.5"
                 }`}
               />
             </div>
-            <span className={safe ? "text-[var(--accent)]" : "text-[var(--muted)]"}>Safe</span>
+            <span className={stealth ? "text-[var(--accent)]" : "text-[var(--muted)]"}>Stealth</span>
           </button>
         </div>
       </div>
