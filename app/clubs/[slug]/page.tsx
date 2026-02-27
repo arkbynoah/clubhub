@@ -38,7 +38,7 @@ const HIRING_CONFIG = {
   },
   none: {
     dot: "bg-[#8A8A8A]",
-    text: "text-[#8A8A8A]",
+    text: "text-[var(--muted)]",
     label: "Not Hiring",
   },
 } as const;
@@ -92,32 +92,32 @@ export default function ClubDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black">
+      <div className="min-h-screen bg-[var(--bg)]">
         <Navbar activeCategory="" setActiveCategory={(cat) => router.push(`/?category=${encodeURIComponent(cat)}`)} />
         <div className="mx-auto max-w-7xl px-6 pt-8">
           {/* Back button skeleton */}
-          <div className="mb-8 h-5 w-36 animate-pulse rounded bg-[#2B2B2B]" />
+          <div className="mb-8 h-5 w-36 animate-pulse rounded bg-[var(--card)]" />
 
           {/* Header skeleton */}
-          <div className="mb-2 h-10 w-48 animate-pulse rounded bg-[#2B2B2B]" />
-          <div className="mb-4 h-5 w-72 animate-pulse rounded bg-[#2B2B2B]" />
+          <div className="mb-2 h-10 w-48 animate-pulse rounded bg-[var(--card)]" />
+          <div className="mb-4 h-5 w-72 animate-pulse rounded bg-[var(--card)]" />
           <div className="mb-8 flex gap-2">
-            <div className="h-6 w-20 animate-pulse rounded bg-[#2B2B2B]" />
-            <div className="h-6 w-44 animate-pulse rounded bg-[#2B2B2B]" />
+            <div className="h-6 w-20 animate-pulse rounded bg-[var(--card)]" />
+            <div className="h-6 w-44 animate-pulse rounded bg-[var(--card)]" />
           </div>
 
           {/* Timeline skeleton */}
           <div className="mt-12">
-            <div className="mb-4 h-7 w-40 animate-pulse rounded bg-[#2B2B2B]" />
-            <div className="space-y-0 rounded-[8px] border border-[#3B3B3B] bg-[#2B2B2B]">
+            <div className="mb-4 h-7 w-40 animate-pulse rounded bg-[var(--card)]" />
+            <div className="space-y-0 rounded-[8px] border border-[var(--border)] bg-[var(--card)]">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
-                  className="flex items-center justify-between border-b border-[#3B3B3B] px-5 py-4 last:border-b-0"
+                  className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4 last:border-b-0"
                 >
-                  <div className="h-4 w-32 animate-pulse rounded bg-[#3B3B3B]" />
-                  <div className="h-4 w-40 animate-pulse rounded bg-[#3B3B3B]" />
-                  <div className="h-4 w-24 animate-pulse rounded bg-[#3B3B3B]" />
+                  <div className="h-4 w-32 animate-pulse rounded bg-[var(--border)]" />
+                  <div className="h-4 w-40 animate-pulse rounded bg-[var(--border)]" />
+                  <div className="h-4 w-24 animate-pulse rounded bg-[var(--border)]" />
                 </div>
               ))}
             </div>
@@ -125,12 +125,12 @@ export default function ClubDetailPage() {
 
           {/* Team skeleton */}
           <div className="mt-12 pb-20">
-            <div className="mb-4 h-7 w-36 animate-pulse rounded bg-[#2B2B2B]" />
+            <div className="mb-4 h-7 w-36 animate-pulse rounded bg-[var(--card)]" />
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, i) => (
                 <div
                   key={i}
-                  className="h-24 animate-pulse rounded-[8px] border border-[#3B3B3B] bg-[#2B2B2B]"
+                  className="h-24 animate-pulse rounded-[8px] border border-[var(--border)] bg-[var(--card)]"
                 />
               ))}
             </div>
@@ -142,15 +142,15 @@ export default function ClubDetailPage() {
 
   if (notFound) {
     return (
-      <div className="min-h-screen bg-black">
+      <div className="min-h-screen bg-[var(--bg)]">
         <Navbar activeCategory="" setActiveCategory={(cat) => router.push(`/?category=${encodeURIComponent(cat)}`)} />
         <div className="flex flex-col items-center justify-center px-6 pt-32">
-          <p className="mb-6 text-xl font-medium text-[#8A8A8A]">
+          <p className="mb-6 text-xl font-medium text-[var(--muted)]">
             Club not found
           </p>
           <button
             onClick={() => router.push("/")}
-            className="rounded-[8px] bg-[#2B2B2B] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#333333]"
+            className="rounded-[8px] bg-[var(--card)] px-6 py-3 text-sm font-medium text-[var(--text)] transition-colors hover:bg-[var(--card-hover)]"
           >
             ← Back to Directory
           </button>
@@ -268,14 +268,14 @@ export default function ClubDetailPage() {
   );
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-[var(--bg)]">
       <Navbar activeCategory="" setActiveCategory={(cat) => router.push(`/?category=${encodeURIComponent(cat)}`)} />
 
       <div className="mx-auto max-w-7xl px-6 pt-8">
         {/* Back button */}
         <button
           onClick={() => router.push("/")}
-          className="mb-8 flex items-center gap-2 text-sm font-medium text-[#8A8A8A] transition-colors hover:text-white"
+          className="mb-8 flex items-center gap-2 text-sm font-medium text-[var(--muted)] transition-colors hover:text-[var(--text)]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -296,15 +296,15 @@ export default function ClubDetailPage() {
 
         {/* Header */}
         <div className="mb-12">
-          <h1 className="text-4xl font-extrabold text-white">{club.name}</h1>
+          <h1 className="text-4xl font-extrabold text-[var(--text)]">{club.name}</h1>
           {club.full_name !== club.name && (
-            <p className="mt-1 text-lg font-medium text-[#8A8A8A]">
+            <p className="mt-1 text-lg font-medium text-[var(--muted)]">
               {club.full_name}
             </p>
           )}
 
           <div className="mt-4 flex flex-wrap items-center gap-3">
-            <span className="rounded-[4px] bg-[#FF9000] px-2 py-0.5 text-[10px] font-bold uppercase text-black">
+            <span className="rounded-[4px] bg-[var(--accent)] px-2 py-0.5 text-[10px] font-bold uppercase text-[var(--on-accent)]">
               {club.category}
             </span>
 
@@ -330,7 +330,7 @@ export default function ClubDetailPage() {
                 }
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#8A8A8A] transition-colors hover:text-white"
+                className="text-[var(--muted)] transition-colors hover:text-[var(--text)]"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -354,7 +354,7 @@ export default function ClubDetailPage() {
 
         {/* Timeline Section */}
         <section className="mb-12">
-          <h2 className="mb-4 text-2xl font-extrabold text-white">
+          <h2 className="mb-4 text-2xl font-extrabold text-[var(--text)]">
             Hiring Timeline
           </h2>
 
@@ -368,20 +368,20 @@ export default function ClubDetailPage() {
           )}
 
           {timeline.length === 0 ? (
-            <p className="py-8 text-sm font-medium text-[#8A8A8A]">
+            <p className="py-8 text-sm font-medium text-[var(--muted)]">
               No timeline events yet
             </p>
           ) : (
-            <div className="overflow-hidden rounded-[8px] border border-[#3B3B3B] bg-[#2B2B2B]">
+            <div className="overflow-hidden rounded-[8px] border border-[var(--border)] bg-[var(--card)]">
               {timeline.map((event, i) => (
                 <div
                   key={event.id}
                   className={`flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-center sm:justify-between ${
-                    i < timeline.length - 1 ? "border-b border-[#3B3B3B]" : ""
-                  } ${event.is_urgent ? "border-l-2 border-l-[#FF9000]" : ""}`}
+                    i < timeline.length - 1 ? "border-b border-[var(--border)]" : ""
+                  } ${event.is_urgent ? "border-l-2 border-l-[var(--accent)]" : ""}`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-sm font-semibold text-white">
+                    <span className="text-sm font-semibold text-[var(--text)]">
                       {event.event_name}
                     </span>
                     {event.is_urgent && (
@@ -392,7 +392,7 @@ export default function ClubDetailPage() {
                   </div>
                   <div className="flex items-center gap-4">
                     {event.event_date && (
-                      <span className="text-sm font-medium text-[#8A8A8A]">
+                      <span className="text-sm font-medium text-[var(--muted)]">
                         {event.event_date}
                       </span>
                     )}
@@ -401,7 +401,7 @@ export default function ClubDetailPage() {
                         ✓ Confirmed
                       </span>
                     ) : (
-                      <span className="whitespace-nowrap text-xs font-medium text-[#8A8A8A]">
+                      <span className="whitespace-nowrap text-xs font-medium text-[var(--muted)]">
                         ~ Estimated
                       </span>
                     )}
@@ -415,7 +415,7 @@ export default function ClubDetailPage() {
         {/* Team Section */}
         <section className="pb-20">
           {team.length === 0 ? (
-            <p className="py-8 text-sm font-medium text-[#8A8A8A]">
+            <p className="py-8 text-sm font-medium text-[var(--muted)]">
               Team information coming soon
             </p>
           ) : (
@@ -423,25 +423,25 @@ export default function ClubDetailPage() {
               {/* Incoming Leadership */}
               {incomingMembers.length > 0 && (
                 <div className="mb-8">
-                  <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.08em] text-[#FF9000]">
+                  <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.08em] text-[var(--accent)]">
                     Incoming Leadership
                   </h3>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     {incomingMembers.map((member) => (
                       <div
                         key={member.id}
-                        className="relative rounded-[8px] border border-[#3B3B3B] border-l-[#FF9000] border-l-2 bg-[#2B2B2B] p-4"
+                        className="relative rounded-[8px] border border-[var(--border)] border-l-[var(--accent)] border-l-2 bg-[var(--card)] p-4"
                       >
-                        <p className="text-sm font-bold text-white">
+                        <p className="text-sm font-bold text-[var(--text)]">
                           {member.name}
                         </p>
                         {member.role && (
-                          <p className="mt-1 text-xs font-medium text-[#8A8A8A]">
+                          <p className="mt-1 text-xs font-medium text-[var(--muted)]">
                             {member.role}
                           </p>
                         )}
                         {member.year && (
-                          <p className="mt-1 text-xs font-medium text-[#FF9000]">
+                          <p className="mt-1 text-xs font-medium text-[var(--accent)]">
                             {member.year}
                           </p>
                         )}
@@ -449,7 +449,7 @@ export default function ClubDetailPage() {
                           href={`https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(member.name + " Queen's University")}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center rounded-full border border-[#3B3B3B] p-1.5 text-[#8A8A8A] transition-colors hover:border-[#0A66C2] hover:text-[#0A66C2]"
+                          className="absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center rounded-full border border-[var(--border)] p-1.5 text-[var(--muted)] transition-colors hover:border-[#0A66C2] hover:text-[#0A66C2]"
                           title="Search on LinkedIn"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
@@ -464,13 +464,13 @@ export default function ClubDetailPage() {
 
               {/* Current Team by Role Type */}
               {sortedRoleTypes.length > 0 && (
-                <h2 className="mb-6 text-2xl font-extrabold text-white">
+                <h2 className="mb-6 text-2xl font-extrabold text-[var(--text)]">
                   Current Executive Team
                 </h2>
               )}
               {sortedRoleTypes.map((roleType) => (
                 <div key={roleType} className="mb-8">
-                  <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.08em] text-[#8A8A8A]">
+                  <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.08em] text-[var(--muted)]">
                     {ROLE_HEADINGS[roleType] || roleType}
                   </h3>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -485,18 +485,18 @@ export default function ClubDetailPage() {
                     }).map((member) => (
                       <div
                         key={member.id}
-                        className="relative rounded-[8px] border border-[#3B3B3B] bg-[#2B2B2B] p-4"
+                        className="relative rounded-[8px] border border-[var(--border)] bg-[var(--card)] p-4"
                       >
-                        <p className="text-sm font-bold text-white">
+                        <p className="text-sm font-bold text-[var(--text)]">
                           {member.name}
                         </p>
                         {member.role && (
-                          <p className="mt-1 text-xs font-medium text-[#8A8A8A]">
+                          <p className="mt-1 text-xs font-medium text-[var(--muted)]">
                             {member.role}
                           </p>
                         )}
                         {member.year && (
-                          <p className="mt-1 text-xs font-medium text-[#FF9000]">
+                          <p className="mt-1 text-xs font-medium text-[var(--accent)]">
                             {member.year}
                           </p>
                         )}
@@ -504,7 +504,7 @@ export default function ClubDetailPage() {
                           href={`https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(member.name + " Queen's University")}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center rounded-full border border-[#3B3B3B] p-1.5 text-[#8A8A8A] transition-colors hover:border-[#0A66C2] hover:text-[#0A66C2]"
+                          className="absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center rounded-full border border-[var(--border)] p-1.5 text-[var(--muted)] transition-colors hover:border-[#0A66C2] hover:text-[#0A66C2]"
                           title="Search on LinkedIn"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">

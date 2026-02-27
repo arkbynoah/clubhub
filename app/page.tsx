@@ -178,7 +178,7 @@ export default function Home() {
   })();
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-[var(--bg)]">
       <Navbar
         activeCategory={activeCategory}
         setActiveCategory={(cat: string) => {
@@ -189,16 +189,16 @@ export default function Home() {
 
       {/* Hero */}
       <section className="flex flex-col items-center px-4 pt-20 pb-14">
-        <h1 className="mb-4 text-center text-5xl font-extrabold text-white">
+        <h1 className="mb-4 text-center text-5xl font-extrabold text-[var(--text)]">
           It&apos;s March Hiring Szn.
         </h1>
-        <p className="mb-8 text-center text-lg font-medium text-[#8A8A8A]">
+        <p className="mb-8 text-center text-lg font-medium text-[var(--muted)]">
           Queen&apos;s Commerce Club Recruiting,<br className="sm:hidden" /> All in One Place.
         </p>
 
         <div className="relative w-full max-w-[600px]">
           <svg
-            className="absolute left-5 top-1/2 -translate-y-1/2 text-[#8A8A8A]"
+            className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted)]"
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"
@@ -217,7 +217,7 @@ export default function Home() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={placeholder}
-            className="w-full rounded-full bg-[#2B2B2B] py-4 pl-14 pr-6 text-base text-white placeholder-[#8A8A8A] outline-none focus:ring-2 focus:ring-[#FF9000]"
+            className="w-full rounded-full bg-[var(--card)] py-4 pl-14 pr-6 text-base text-[var(--text)] placeholder-[var(--muted)] outline-none focus:ring-2 focus:ring-[var(--accent)]"
           />
         </div>
       </section>
@@ -225,7 +225,7 @@ export default function Home() {
       {/* Results */}
       <section className="mx-auto max-w-7xl px-6 pb-20">
         {noResults && !loading && (
-          <p className="py-20 text-center text-[#8A8A8A]">
+          <p className="py-20 text-center text-[var(--muted)]">
             No results found for &ldquo;{searchQuery.trim()}&rdquo;
           </p>
         )}
@@ -234,10 +234,10 @@ export default function Home() {
         {(clubsFirst || !hasPeopleResults) && (!hasQuery || hasClubResults || loading) && !noResults && (
           <>
             <div className="mb-6 flex items-center gap-3">
-              <h2 className="text-2xl font-extrabold text-white">
+              <h2 className="text-2xl font-extrabold text-[var(--text)]">
                 {hasQuery ? "Clubs" : "All Clubs"}
               </h2>
-              <span className="rounded-[4px] bg-[#FF9000] px-2.5 py-0.5 text-sm font-bold text-black">
+              <span className="rounded-[4px] bg-[var(--badge-bg)] px-2.5 py-0.5 text-sm font-bold text-[var(--on-accent)]">
                 {filteredClubs.length}
               </span>
             </div>
@@ -247,7 +247,7 @@ export default function Home() {
                 {Array.from({ length: 8 }).map((_, i) => (
                   <div
                     key={i}
-                    className="h-44 animate-pulse rounded-[8px] border border-[#3B3B3B] bg-[#2B2B2B]"
+                    className="h-44 animate-pulse rounded-[8px] border border-[var(--border)] bg-[var(--card)]"
                   />
                 ))}
               </div>
@@ -265,10 +265,10 @@ export default function Home() {
         {hasPeopleResults && (
           <>
             <div className={`mb-6 flex items-center gap-3${hasClubResults || !hasQuery ? " mt-12" : ""}`}>
-              <h2 className="text-2xl font-extrabold text-white">
+              <h2 className="text-2xl font-extrabold text-[var(--text)]">
                 People &amp; Roles
               </h2>
-              <span className="rounded-[4px] bg-[#FF9000] px-2.5 py-0.5 text-sm font-bold text-black">
+              <span className="rounded-[4px] bg-[var(--badge-bg)] px-2.5 py-0.5 text-sm font-bold text-[var(--on-accent)]">
                 {filteredPeople.length}
               </span>
             </div>
@@ -277,33 +277,33 @@ export default function Home() {
               {filteredPeople.map((person) => (
                 <div
                   key={person.id}
-                  className="rounded-[8px] border border-[#3B3B3B] bg-[#2B2B2B] p-4"
+                  className="rounded-[8px] border border-[var(--border)] bg-[var(--card)] p-4"
                 >
                   <div className="flex items-center gap-2">
-                    <p className="text-sm font-bold text-white">
+                    <p className="text-sm font-bold text-[var(--text)]">
                       {person.name}
                     </p>
                     {person.is_incoming && (
-                      <span className="rounded-[4px] bg-[#FF9000] px-1.5 py-0.5 text-[10px] font-bold text-black">
+                      <span className="rounded-[4px] bg-[var(--badge-bg)] px-1.5 py-0.5 text-[10px] font-bold text-[var(--on-accent)]">
                         Incoming
                       </span>
                     )}
                   </div>
 
                   {person.role && (
-                    <p className="mt-1 text-xs font-medium text-[#8A8A8A]">
+                    <p className="mt-1 text-xs font-medium text-[var(--muted)]">
                       {person.role}
                     </p>
                   )}
 
                   <div className="mt-2 flex items-center gap-2">
                     {person.role_type && (
-                      <span className="rounded-[4px] bg-[#FF9000]/15 px-2 py-0.5 text-[10px] font-bold text-[#FF9000]">
+                      <span className="rounded-[4px] bg-[var(--accent-soft)] px-2 py-0.5 text-[10px] font-bold text-[var(--accent)]">
                         {person.role_type}
                       </span>
                     )}
                     {person.year && (
-                      <span className="text-xs font-medium text-[#FF9000]">
+                      <span className="text-xs font-medium text-[var(--accent)]">
                         {person.year}
                       </span>
                     )}
@@ -313,7 +313,7 @@ export default function Home() {
                     {person.clubs ? (
                       <a
                         href={`/clubs/${person.clubs.slug}`}
-                        className="inline-block rounded-full border border-[#3B3B3B] px-3 py-1 text-[11px] font-medium text-[#8A8A8A] transition-colors hover:border-[#FF9000] hover:text-white"
+                        className="inline-block rounded-full border border-[var(--border)] px-3 py-1 text-[11px] font-medium text-[var(--muted)] transition-colors hover:border-[var(--accent)] hover:text-[var(--text)]"
                       >
                         {person.clubs.name}
                       </a>
@@ -322,7 +322,7 @@ export default function Home() {
                       href={`https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(person.name + " Queen's University")}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center rounded-full border border-[#3B3B3B] p-1.5 text-[#8A8A8A] transition-colors hover:border-[#0A66C2] hover:text-[#0A66C2]"
+                      className="inline-flex items-center rounded-full border border-[var(--border)] p-1.5 text-[var(--muted)] transition-colors hover:border-[#0A66C2] hover:text-[#0A66C2]"
                       title="Search on LinkedIn"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
@@ -340,10 +340,10 @@ export default function Home() {
         {!clubsFirst && hasPeopleResults && hasClubResults && !noResults && (
           <>
             <div className="mb-6 mt-12 flex items-center gap-3">
-              <h2 className="text-2xl font-extrabold text-white">
+              <h2 className="text-2xl font-extrabold text-[var(--text)]">
                 Clubs
               </h2>
-              <span className="rounded-[4px] bg-[#FF9000] px-2.5 py-0.5 text-sm font-bold text-black">
+              <span className="rounded-[4px] bg-[var(--badge-bg)] px-2.5 py-0.5 text-sm font-bold text-[var(--on-accent)]">
                 {filteredClubs.length}
               </span>
             </div>

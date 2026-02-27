@@ -28,7 +28,7 @@ const HIRING_CONFIG = {
   },
   none: {
     dot: "bg-[#8A8A8A]",
-    text: "text-[#8A8A8A]",
+    text: "text-[var(--muted)]",
     label: "Not Hiring",
   },
 } as const;
@@ -40,10 +40,10 @@ export default function ClubCard({ club }: { club: Club }) {
   return (
     <div
       onClick={() => router.push(`/clubs/${club.slug}`)}
-      className="relative cursor-pointer rounded-[8px] border border-[#3B3B3B] bg-[#2B2B2B] p-5 transition-all duration-200 hover:scale-[1.02] hover:bg-[#333333]"
+      className="relative cursor-pointer rounded-[8px] border border-[var(--border)] bg-[var(--card)] p-5 transition-all duration-200 hover:scale-[1.02] hover:bg-[var(--card-hover)]"
     >
       <div className="mb-3 flex items-start justify-between">
-        <span className="rounded-[4px] bg-[#FF9000] px-2 py-0.5 text-[10px] font-bold uppercase text-black">
+        <span className="rounded-[4px] bg-[var(--badge-bg)] px-2 py-0.5 text-[10px] font-bold uppercase text-[var(--on-accent)]">
           {club.category}
         </span>
         {club.is_urgent && (
@@ -53,11 +53,11 @@ export default function ClubCard({ club }: { club: Club }) {
         )}
       </div>
 
-      <h3 className={`text-xl font-extrabold text-white ${club.full_name !== club.name ? "mb-1" : "mb-4"}`}>
+      <h3 className={`text-xl font-extrabold text-[var(--text)] ${club.full_name !== club.name ? "mb-1" : "mb-4"}`}>
         {club.name}
       </h3>
       {club.full_name !== club.name && (
-        <p className="mb-4 text-sm font-medium text-[#8A8A8A]">{club.full_name}</p>
+        <p className="mb-4 text-sm font-medium text-[var(--muted)]">{club.full_name}</p>
       )}
 
       <div className="flex items-center justify-between">
@@ -78,7 +78,7 @@ export default function ClubCard({ club }: { club: Club }) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="text-[#8A8A8A] transition-colors hover:text-white"
+            className="text-[var(--muted)] transition-colors hover:text-[var(--text)]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

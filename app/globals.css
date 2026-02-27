@@ -1,19 +1,46 @@
 @import "tailwindcss";
 
-:root {
-  --background: #000000;
-  --foreground: #ffffff;
+@layer base {
+  :root {
+    --bg: #000000;
+    --card: #2B2B2B;
+    --card-hover: #333333;
+    --border: #3B3B3B;
+    --accent: #FF9000;
+    --accent-soft: rgba(255, 144, 0, 0.15);
+    --text: #FFFFFF;
+    --muted: #8A8A8A;
+    --on-accent: #000000;
+    --badge-bg: #FF9000;
+    --logo-accent: #FF9000;
+    --logo-on-accent: #000000;
+  }
+
+  [data-theme="safe"] {
+    --bg: #000000;
+    --card: #2B2B2B;
+    --card-hover: #333333;
+    --border: #3B3B3B;
+    --accent: #7C5CFC;
+    --accent-soft: rgba(124, 92, 252, 0.12);
+    --text: #FFFFFF;
+    --muted: #8A8A8A;
+    --on-accent: #FFFFFF;
+    --badge-bg: #7C5CFC;
+    --logo-accent: #7C5CFC;
+    --logo-on-accent: #FFFFFF;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-noto-sans), Arial, sans-serif;
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-noto-sans), Arial, sans-serif;
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
 }
 
 .scrollbar-hide::-webkit-scrollbar {
