@@ -177,15 +177,28 @@ export default function ClubDetailPage() {
   function getRolePriority(roleType: string): number {
     const lower = roleType.toLowerCase();
     if (lower === "co-chair") return 0;
+    if (lower === "co-president") return 0;
     if (lower.includes("advisor")) return 1;
     if (lower === "head of engagement") return 1.5;
     if (lower === "engagement director") return 1.7;
+    if (lower === "people & culture") return 1.8;
+    if (lower === "marketing") return 1.9;
     if (lower === "director" || lower.startsWith("director of") || lower === "senior director" || lower === "membership director") return 2;
     if (lower === "operations") return 3;
     if (lower === "strategy") return 3;
     if (lower === "marketing coord") return 4;
     if (lower === "marketing coordinator") return 4;
     if (lower === "logistics coordinator") return 4;
+    if (lower === "photography") return 3.1;
+    if (lower === "graphic design") return 3.2;
+    if (lower === "videography") return 3.3;
+    if (lower === "projects & events") return 3.4;
+    if (lower === "client relations") return 3.5;
+    if (lower === "finance & logistics") return 3.6;
+    if (lower === "finance") return 4.1;
+    if (lower === "sponsorship") return 4.2;
+    if (lower === "seva events") return 4.3;
+    if (lower === "professional development events") return 4.4;
     if (lower === "development") return 5;
     if (lower === "data") return 6;
     if (lower === "pm") return 7;
@@ -219,6 +232,7 @@ export default function ClubDetailPage() {
 
   const ROLE_HEADINGS: Record<string, string> = {
     "Co-Chair": "Co-Chairs",
+    "Co-President": "Co-Presidents",
     "Advisor": "Advisors",
     "Senior Advisor": "Senior Advisors",
     "Director": "Directors",
@@ -258,6 +272,18 @@ export default function ClubDetailPage() {
     "First Year Hire": "First Year Hires",
     "Head of Engagement": "Heads of Engagement",
     "Engagement Director": "Engagement Directors",
+    "Photography": "Photography",
+    "Graphic Design": "Graphic Design",
+    "Videography": "Videography",
+    "Projects & Events": "Projects & Events",
+    "Client Relations": "Client Relations",
+    "Finance & Logistics": "Finance & Logistics",
+    "People & Culture": "People & Culture",
+    "Marketing": "Marketing",
+    "Finance": "Finance",
+    "Sponsorship": "Sponsorship",
+    "Seva Events": "Seva Events",
+    "Professional Development Events": "Professional Development Events",
     "Comm '26": "Comm '26",
     "Comm '27": "Comm '27",
     "Comm '28": "Comm '28",
