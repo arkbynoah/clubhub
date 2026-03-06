@@ -66,7 +66,7 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchData() {
-      const [clubsRes, peopleRes] = await Promise.all([
+      const [clubsRes, peoplePage1, peoplePage2] = await Promise.all([
         supabase
           .from("clubs")
           .select("id, name, full_name, slug, category, description, instagram_url, hiring_status, is_urgent, march_hiring")
@@ -74,13 +74,20 @@ export default function Home() {
         supabase
           .from("team_members")
           .select("id, club_id, name, role, role_type, year, is_incoming, clubs(name, full_name, slug)")
-          .order("name"),
+          .order("name")
+          .range(0, 999),
+        supabase
+          .from("team_members")
+          .select("id, club_id, name, role, role_type, year, is_incoming, clubs(name, full_name, slug)")
+          .order("name")
+          .range(1000, 1999),
       ]);
 
+      const peopleData = [...(peoplePage1.data || []), ...(peoplePage2.data || [])];
       if (clubsRes.data) setClubs(clubsRes.data as Club[]);
-      if (peopleRes.data) {
+      if (peopleData.length > 0) {
         // Supabase returns joined relation as array; unwrap to single object
-        const normalized = (peopleRes.data as Record<string, unknown>[]).map((row) => ({
+        const normalized = (peopleData as Record<string, unknown>[]).map((row) => ({
           ...row,
           clubs: Array.isArray(row.clubs) ? row.clubs[0] : row.clubs,
         })) as TeamMemberWithClub[];
@@ -129,7 +136,7 @@ export default function Home() {
       const words = q.split(/\s+/).filter((w) => !STOP_WORDS.has(w) && w.length > 1);
       if (words.length === 0) return true;
       // Use word-boundary matching so "dev" doesn't match "development"
-      return words.some((word) => {
+      return words.every((word) => {
         const re = new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`);
         return re.test(haystack) || re.test(normalize(haystack));
       });
